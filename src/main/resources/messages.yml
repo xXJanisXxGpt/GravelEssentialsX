@@ -1,0 +1,6 @@
+prefix: "&8[&bGravelEssentials&8]&r "
+no-permission: "&cDu hast keine Berechtigung für diesen Befehl!"
+
+# Reload Command
+reload-success: "&aDie Konfigurationsdateien wurden neu geladen!"
+reload-usage: "&eVerwendung: /ge reload"

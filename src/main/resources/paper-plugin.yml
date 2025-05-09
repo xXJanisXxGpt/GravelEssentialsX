@@ -1,0 +1,8 @@
+name: GravelEssentialsX
+version: '1.0'
+main: com.xXJanisXx.gravelEssentialsX.GravelEssentialsX
+api-version: '1.21'
+prefix: MysticSmp
+authors: [ xXJanisXx ]
+description: Placeholder
+website: https://discord.gg/mcDAKmNy
