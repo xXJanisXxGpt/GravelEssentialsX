@@ -1,0 +1,23 @@
+name: GravelEssentialsX
+version: '${project.version}'
+main: com.xXJanisXx.gravelEssentialsX.GravelEssentialsX
+api-version: '1.16'
+authors: [xXJanisXx]
+description: Essential commands for Gravel Server
+commands:
+  ge:
+    description: GravelEssentials main command
+    usage: /ge reload
+    permission: gravelessentials.admin
+  tpa:
+    description: Teleport to another player with their permission
+    usage: /tpa <send|accept|deny|cancel> [player]
+    permission: gravelessentials.tpa
+    aliases: [teleport, tp]
+permissions:
+  gravelessentials.admin:
+    description: Admin permission for GravelEssentials
+    default: op
+  gravelessentials.tpa:
+    description: Permission to use TPA command
+    default: true
