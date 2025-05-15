@@ -1,5 +1,8 @@
 # Default configuration for GravelEssentialsX
 
+# Debug-Mode (true/false)
+debug: false
+
 # TPA System Configuration
 tpa:
 
@@ -9,5 +12,17 @@ tpa:
 
   warmup-seconds: 3
 
-# Debug-Mode (true/false)
-debug: false
+# MySQL Config
+mysql:
+  enabled: true
+  host: "localhost"
+  port: 3306
+  database: "minecraft"
+  username: "minecraft"
+  password: "minecraft"
+  connection-pool-size: 5
+  ssl: false
+  auto-reconnect: true
+  timeout-seconds: 30
+
+

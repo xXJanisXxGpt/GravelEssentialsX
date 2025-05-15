@@ -3,19 +3,21 @@ package com.xXJanisXx.gravelEssentialsX.commands;
 import com.xXJanisXx.gravelEssentialsX.GravelEssentialsX;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReloadCommand implements CommandExecutor, TabCompleter {
 
     private final GravelEssentialsX plugin;
+    private final List<String> subCommands = Arrays.asList("reload", "version", "help");
 
     public ReloadCommand(GravelEssentialsX plugin) {
         this.plugin = plugin;
@@ -23,44 +25,59 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        // Überprüfe Berechtigung
-        if (!sender.hasPermission("gravelessentials.reload")) {
-            sender.sendMessage(
-                    plugin.getPrefix().append(
-                            Component.text("Du hast keine Berechtigung für diesen Befehl!", NamedTextColor.RED)
-                    )
-            );
+        if (!sender.hasPermission("gravelessentials.admin")) {
+            sender.sendMessage(plugin.getPrefix().append(Component.text("Du hast keine Berechtigung für diesen Befehl.", NamedTextColor.RED)));
             return true;
         }
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            plugin.getConfigManager().loadConfigurations();
-
-            sender.sendMessage(
-                    plugin.getPrefix().append(
-                            Component.text("Die Konfigurationsdateien wurden neu geladen!", NamedTextColor.GREEN)
-                                    .decoration(TextDecoration.BOLD, true)
-                    )
-            );
+        if (args.length == 0) {
+            showHelp(sender);
             return true;
         }
 
-        sender.sendMessage(
-                plugin.getPrefix().append(
-                        Component.text("Verwendung: /ge reload", NamedTextColor.YELLOW)
-                )
-        );
+        switch (args[0].toLowerCase()) {
+            case "reload":
+                // Plugin neuladen
+                plugin.reload();
+                sender.sendMessage(plugin.getPrefix().append(Component.text("Konfiguration erfolgreich neu geladen!", NamedTextColor.GREEN)));
+                break;
+
+            case "version":
+                // Plugin-Version anzeigen
+                sender.sendMessage(plugin.getPrefix().append(
+                        Component.text("Version: ", NamedTextColor.YELLOW)
+                                .append(Component.text(plugin.getDescription().getVersion(), NamedTextColor.GREEN))
+                ));
+                break;
+
+            case "help":
+            default:
+                showHelp(sender);
+                break;
+        }
 
         return true;
     }
 
+    private void showHelp(CommandSender sender) {
+        sender.sendMessage(plugin.getPrefix().append(Component.text("Verfügbare Befehle:", NamedTextColor.YELLOW)));
+        sender.sendMessage(Component.text("  /ge reload", NamedTextColor.AQUA).append(Component.text(" - Lädt die Config neu", NamedTextColor.GRAY)));
+        sender.sendMessage(Component.text("  /ge version", NamedTextColor.AQUA).append(Component.text(" - Zeigt die Plugin-Version an", NamedTextColor.GRAY)));
+    }
+
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        if (args.length == 1) {
-            if (sender.hasPermission("gravelessentials.reload")) {
-                return List.of("reload");
-            }
+        if (!sender.hasPermission("gravelessentials.admin")) {
+            return new ArrayList<>();
         }
-        return Collections.emptyList();
+
+        if (args.length == 1) {
+            String input = args[0].toLowerCase();
+            return subCommands.stream()
+                    .filter(s -> s.startsWith(input))
+                    .collect(Collectors.toList());
+        }
+
+        return new ArrayList<>();
     }
 }
