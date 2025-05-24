@@ -1,23 +1,59 @@
 name: GravelEssentialsX
-version: '${project.version}'
+version: '${version}'
 main: com.xXJanisXx.gravelEssentialsX.GravelEssentialsX
-api-version: '1.16'
-authors: [xXJanisXx]
-description: Essential commands for Gravel Server
+api-version: '1.21'
+authors: [ xXJanisXx ]
+description: Essential commands for GravelMC
+
 commands:
+  info:
+    description: Shows server information
+    usage: /info
+
   ge:
-    description: GravelEssentials main command
-    usage: /ge reload
-    permission: gravelessentials.admin
+    description: Main plugin command
+    usage: /ge <reload|version|help>
+    aliases: [gravelessentials]
+
   tpa:
-    description: Teleport to another player with their permission
-    usage: /tpa <send|accept|deny|cancel> [player]
-    permission: gravelessentials.tpa
-    aliases: [teleport, tp]
+    description: Teleport request commands
+    usage: /tpa <player>
+
+  discord:
+    description: Shows discord link
+    usage: /discord
+
+  kit:
+    description: Kit commands
+    usage: /kit <kitname>
+
+  ban:
+    description: Ban a player
+    usage: /ban <player> <template|message> [duration]
+    permission: gravelessentials.ban
+
+  unban:
+    description: Unban a player
+    usage: /unban <player>
+    permission: gravelessentials.unban
+
 permissions:
   gravelessentials.admin:
-    description: Admin permission for GravelEssentials
+    description: Admin permissions
     default: op
+
+  gravelessentials.ban:
+    description: Permission to ban players
+    default: op
+
+  gravelessentials.unban:
+    description: Permission to unban players
+    default: op
+
   gravelessentials.tpa:
-    description: Permission to use TPA command
+    description: Permission to use TPA
+    default: true
+
+  gravelessentials.kit:
+    description: Permission to use kits
     default: true

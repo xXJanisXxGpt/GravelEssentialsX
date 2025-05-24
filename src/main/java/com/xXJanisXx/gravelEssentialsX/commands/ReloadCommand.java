@@ -37,13 +37,11 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
 
         switch (args[0].toLowerCase()) {
             case "reload":
-                // Plugin neuladen
                 plugin.reload();
                 sender.sendMessage(plugin.getPrefix().append(Component.text("Konfiguration erfolgreich neu geladen!", NamedTextColor.GREEN)));
                 break;
 
             case "version":
-                // Plugin-Version anzeigen
                 sender.sendMessage(plugin.getPrefix().append(
                         Component.text("Version: ", NamedTextColor.YELLOW)
                                 .append(Component.text(plugin.getDescription().getVersion(), NamedTextColor.GREEN))
@@ -63,6 +61,10 @@ public class ReloadCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(plugin.getPrefix().append(Component.text("Verfügbare Befehle:", NamedTextColor.YELLOW)));
         sender.sendMessage(Component.text("  /ge reload", NamedTextColor.AQUA).append(Component.text(" - Lädt die Config neu", NamedTextColor.GRAY)));
         sender.sendMessage(Component.text("  /ge version", NamedTextColor.AQUA).append(Component.text(" - Zeigt die Plugin-Version an", NamedTextColor.GRAY)));
+        sender.sendMessage(Component.text("  /ban <spieler> <template>", NamedTextColor.AQUA).append(Component.text(" - Bannt Spieler mit Template", NamedTextColor.GRAY)));
+        sender.sendMessage(Component.text("  /ban <spieler> <msg> [zeit]", NamedTextColor.AQUA).append(Component.text(" - Custom Ban mit Zeitangabe", NamedTextColor.GRAY)));
+        sender.sendMessage(Component.text("  /unban <spieler>", NamedTextColor.AQUA).append(Component.text(" - Entbannt einen Spieler", NamedTextColor.GRAY)));
+        sender.sendMessage(Component.text("Ban Zeitformat:", NamedTextColor.YELLOW).append(Component.text(" y# m# d# h# min# s#", NamedTextColor.WHITE)));
     }
 
     @Override

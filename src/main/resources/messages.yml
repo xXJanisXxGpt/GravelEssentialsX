@@ -1,6 +1,6 @@
 prefix: "&8[&bGravelEssentials&8]&r "
-no-permission: "&cDu hast keine Berechtigung für diesen Befehl!"
+no-permission: "&cYou don't have the Premission for this Command!"
 
 # Reload Command
-reload-success: "&aDie Konfigurationsdateien wurden neu geladen!"
-reload-usage: "&eVerwendung: /ge reload"
+reload-success: "&aThe Config has Reloaded!"
+reload-usage: "&eUsage /ge reload."

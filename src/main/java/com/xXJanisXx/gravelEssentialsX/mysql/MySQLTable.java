@@ -31,7 +31,7 @@ public class MySQLTable {
 
     public void createTable() {
         if (!connection.isConnected()) {
-            plugin.getLogger().warning("MySQL nicht verbunden! Tabelle " + name + " konnte nicht erstellt werden.");
+            plugin.getLogger().warning("MySQL not connected! Table " + name + " could not be created.");
             return;
         }
 
@@ -66,10 +66,10 @@ public class MySQLTable {
 
             try (Statement statement = conn.createStatement()) {
                 statement.executeUpdate(sql.toString());
-                plugin.getLogger().info("Tabelle " + name + " erfolgreich erstellt oder überprüft!");
+                plugin.getLogger().info("Table " + name + " created or verified successfully!");
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Erstellen der Tabelle " + name + ":", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while creating table " + name + ":", e);
         }
     }
 
@@ -79,7 +79,6 @@ public class MySQLTable {
         }
 
         try (Connection conn = connection.getConnection()) {
-            // Bestehende Spalten abfragen
             Map<String, String> existingColumns = new HashMap<>();
             String sql = "SHOW COLUMNS FROM `" + name + "`;";
 
@@ -100,12 +99,12 @@ public class MySQLTable {
 
                     try (Statement alterStmt = conn.createStatement()) {
                         alterStmt.executeUpdate(alterSql);
-                        plugin.getLogger().info("Spalte " + columnName + " zur Tabelle " + name + " hinzugefügt.");
+                        plugin.getLogger().info("Column " + columnName + " added to table " + name + ".");
                     }
                 }
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler bei der Tabellenüberprüfung " + name + ":", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while verifying table " + name + ":", e);
         }
     }
 
@@ -147,7 +146,7 @@ public class MySQLTable {
 
     public void set(String columnName, Object value, Condition condition) {
         if (!connection.isConnected()) {
-            plugin.getLogger().warning("MySQL nicht verbunden! Konnte Wert nicht setzen.");
+            plugin.getLogger().warning("MySQL not connected! Could not set value.");
             return;
         }
 
@@ -177,7 +176,7 @@ public class MySQLTable {
                 }
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Setzen von Daten:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while setting data:", e);
         }
     }
 
@@ -238,7 +237,7 @@ public class MySQLTable {
                 }
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Setzen mehrerer Werte:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while setting multiple values:", e);
         }
     }
 
@@ -256,7 +255,7 @@ public class MySQLTable {
                 return ps.executeUpdate() > 0;
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Entfernen von Daten:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while removing data:", e);
             return false;
         }
     }
@@ -274,7 +273,7 @@ public class MySQLTable {
             ps.setObject(1, condition.getValue());
             return ps;
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Erstellen der SELECT-Anweisung:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while preparing SELECT statement:", e);
             return null;
         }
     }
@@ -291,13 +290,13 @@ public class MySQLTable {
             }
             return null;
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Lesen eines String-Werts:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while reading a string value:", e);
             return null;
         } finally {
             try {
                 ps.close();
             } catch (SQLException e) {
-                // Ignorieren
+                // silently ignore
             }
         }
     }
@@ -314,13 +313,13 @@ public class MySQLTable {
             }
             return 0;
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Lesen eines Integer-Werts:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while reading an integer value:", e);
             return 0;
         } finally {
             try {
                 ps.close();
             } catch (SQLException e) {
-                // Ignorieren
+                // silently ignore
             }
         }
     }
@@ -337,13 +336,13 @@ public class MySQLTable {
             }
             return false;
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Lesen eines Boolean-Werts:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while reading a boolean value:", e);
             return false;
         } finally {
             try {
                 ps.close();
             } catch (SQLException e) {
-                // Ignorieren
+                // silently ignore
             }
         }
     }
@@ -364,7 +363,7 @@ public class MySQLTable {
                 }
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Prüfen der Existenz:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while checking existence:", e);
             return false;
         }
     }
@@ -388,7 +387,7 @@ public class MySQLTable {
                 }
             }
         } catch (SQLException e) {
-            plugin.getLogger().log(Level.SEVERE, "Fehler beim Zählen der Datensätze:", e);
+            plugin.getLogger().log(Level.SEVERE, "Error while counting records:", e);
             return 0;
         }
     }

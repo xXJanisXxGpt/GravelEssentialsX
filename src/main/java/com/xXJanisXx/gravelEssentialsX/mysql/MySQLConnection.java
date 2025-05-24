@@ -2,6 +2,7 @@ package com.xXJanisXx.gravelEssentialsX.mysql;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,15 +51,7 @@ public class MySQLConnection {
     public void connect() {
         if (!isConnected()) {
             try {
-                Properties properties = new Properties();
-                properties.setProperty("user", username);
-                properties.setProperty("password", password);
-                properties.setProperty("useSSL", String.valueOf(ssl));
-                properties.setProperty("autoReconnect", String.valueOf(autoReconnect));
-                properties.setProperty("connectTimeout", String.valueOf(TimeUnit.SECONDS.toMillis(timeout)));
-                properties.setProperty("useUnicode", "true");
-                properties.setProperty("characterEncoding", "utf8");
-                properties.setProperty("serverTimezone", "UTC");
+                Properties properties = getProperties();
 
                 String url = String.format("jdbc:mysql://%s:%d/%s", host, port, database);
                 connection = DriverManager.getConnection(url, properties);
@@ -68,6 +61,19 @@ public class MySQLConnection {
                 plugin.getLogger().log(Level.SEVERE, "Error with Connection to the MySQL Class:", e);
             }
         }
+    }
+
+    private @NotNull Properties getProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("user", username);
+        properties.setProperty("password", password);
+        properties.setProperty("useSSL", String.valueOf(ssl));
+        properties.setProperty("autoReconnect", String.valueOf(autoReconnect));
+        properties.setProperty("connectTimeout", String.valueOf(TimeUnit.SECONDS.toMillis(timeout)));
+        properties.setProperty("useUnicode", "true");
+        properties.setProperty("characterEncoding", "utf8");
+        properties.setProperty("serverTimezone", "UTC");
+        return properties;
     }
 
     public boolean isConnected() {

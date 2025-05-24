@@ -1,16 +1,62 @@
 # Default configuration for GravelEssentialsX
 
-# Debug-Mode (true/false)
+# Debug-Mode
 debug: false
 
-# TPA System Configuration
+# TPA Config
 tpa:
-
   request-timeout-seconds: 60
-
   cooldown-seconds: 60
-
   warmup-seconds: 3
+
+# Discord Config
+discord:
+  link: "https://discord.gg/yourserver"
+  name: "GravelMC Discord"
+
+# Kit Config
+kits:
+  starter:
+    items:
+      - material: BREAD
+        amount: 5
+        name: "<yellow>Brot</yellow>"
+        lore:
+          - "<gray>Placeholder</gray>"
+      - material: STONE_SWORD
+        amount: 1
+        name: "<red>Starter Schwert</red>"
+        lore:
+          - "<gray>Placeholder</gray>"
+
+  fortgeschritten:
+    items:
+      - material: IRON_SWORD
+        amount: 1
+        name: "<gold>Eisenschwert des Abenteurers</gold>"
+        lore:
+          - "<gray>Ein zuverlässiger Begleiter</gray>"
+          - "<blue>+5 Abenteuer</blue>"
+      - material: IRON_HELMET
+        amount: 1
+        name: "<gold>Helm des Abenteurers</gold>"
+        lore:
+          - "<gray>Schützt deinen Kopf</gray>"
+      - material: IRON_CHESTPLATE
+        amount: 1
+        name: "<gold>Brustplatte des Abenteurers</gold>"
+        lore:
+          - "<gray>Schützt deinen Oberkörper</gray>"
+      - material: COOKED_BEEF
+        amount: 16
+        name: "<yellow>Leckeres Steak</yellow>"
+        lore:
+          - "<gray>Gut durchgebraten</gray>"
+      - material: GOLDEN_APPLE
+        amount: 2
+        name: "<gold>Goldener Apfel</gold>"
+        lore:
+          - "<gray>Für Notfälle</gray>"
 
 # MySQL Config
 mysql:
@@ -24,5 +70,3 @@ mysql:
   ssl: false
   auto-reconnect: true
   timeout-seconds: 30
-
-

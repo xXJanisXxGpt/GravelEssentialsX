@@ -1,0 +1,73 @@
+# GravelEssentials Ban Templates
+# Erstelle hier deine eigenen Ban-Templates
+
+exampleban:
+  duration:
+    years: 0
+    months: 0
+    days: 3
+    hours: 15
+    minutes: 23
+    seconds: 4
+  message:
+    - "&6MineAttack"
+    - "&5Du wurdest gebannt"
+    - ""
+    - "Website: https://mineattack.de/ - Discord: discord.gg/mineattack"
+
+griefing:
+  duration:
+    years: 0
+    months: 0
+    days: 7
+    hours: 0
+    minutes: 0
+    seconds: 0
+  message:
+    - "&cDu wurdest wegen Griefing gebannt!"
+    - ""
+    - "&7Grund: Zerstörung fremder Bauwerke"
+    - "&7Dauer: 7 Tage"
+
+hacking:
+  duration:
+    years: 0
+    months: 1
+    days: 0
+    hours: 0
+    minutes: 0
+    seconds: 0
+  message:
+    - "&4HACK/CHEAT VERWENDUNG"
+    - "&cDu wurdest wegen Verwendung unerlaubter Modifikationen gebannt!"
+    - ""
+    - "&7Grund: Hacking/Cheating"
+    - "&7Dauer: 1 Monat"
+
+spam:
+  duration:
+    years: 0
+    months: 0
+    days: 1
+    hours: 0
+    minutes: 0
+    seconds: 0
+  message:
+    - "&eSPAM IM CHAT"
+    - "&7Du wurdest wegen exzessivem Spam gebannt."
+    - ""
+    - "&7Dauer: 1 Tag"
+
+permanent:
+  duration:
+    years: 0
+    months: 0
+    days: 0
+    hours: 0
+    minutes: 0
+    seconds: 0
+  message:
+    - "&4PERMANENTER BAN"
+    - "&cDu wurdest permanent vom Server ausgeschlossen!"
+    - ""
+    - "&7Kontakt: admin@mineattack.de"
