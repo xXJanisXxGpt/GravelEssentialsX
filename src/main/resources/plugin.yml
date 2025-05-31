@@ -27,27 +27,9 @@ commands:
     description: Kit commands
     usage: /kit <kitname>
 
-  ban:
-    description: Ban a player
-    usage: /ban <player> <template|message> [duration]
-    permission: gravelessentials.ban
-
-  unban:
-    description: Unban a player
-    usage: /unban <player>
-    permission: gravelessentials.unban
-
 permissions:
   gravelessentials.admin:
     description: Admin permissions
-    default: op
-
-  gravelessentials.ban:
-    description: Permission to ban players
-    default: op
-
-  gravelessentials.unban:
-    description: Permission to unban players
     default: op
 
   gravelessentials.tpa:

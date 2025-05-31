@@ -1,10 +1,13 @@
 package com.xXJanisXx.gravelEssentialsX;
 
-import com.xXJanisXx.gravelEssentialsX.commands.*;
+import com.xXJanisXx.gravelEssentialsX.commands.ReloadCommand;
+import com.xXJanisXx.gravelEssentialsX.commands.KitCommand;
+import com.xXJanisXx.gravelEssentialsX.commands.InfoCommand;
+import com.xXJanisXx.gravelEssentialsX.commands.TPACommand;
+import com.xXJanisXx.gravelEssentialsX.commands.DiscordCommand;
 import com.xXJanisXx.gravelEssentialsX.listeners.JoinListener;
 import com.xXJanisXx.gravelEssentialsX.listeners.LeaveListener;
 import com.xXJanisXx.gravelEssentialsX.listeners.TPAListener;
-import com.xXJanisXx.gravelEssentialsX.managers.BanManager;
 import com.xXJanisXx.gravelEssentialsX.managers.ConfigManager;
 import com.xXJanisXx.gravelEssentialsX.managers.KitManager;
 import com.xXJanisXx.gravelEssentialsX.managers.TPAManager;
@@ -23,14 +26,13 @@ public final class GravelEssentialsX extends JavaPlugin {
     private ConfigManager configManager;
     private TPAManager tpaManager;
     private KitManager kitManager;
-    private BanManager banManager;
     private MySQLConnection connection;
 
     @Override
     public void onEnable() {
         sendStartupMessage();
 
-        getLogger().info("Gravel Api Start from com.xXJanisXx.gravelEssentialsX.api.gravellib!");
+        getLogger().info("Gravel Api Start");
 
         configManager = new ConfigManager(this);
         configManager.loadConfigurations();
@@ -39,7 +41,6 @@ public final class GravelEssentialsX extends JavaPlugin {
 
         tpaManager = new TPAManager(this);
         kitManager = new KitManager(this);
-        banManager = new BanManager(this);
 
         registerCommands();
         registerListeners();
@@ -114,30 +115,18 @@ public final class GravelEssentialsX extends JavaPlugin {
         Objects.requireNonNull(getCommand("ge")).setExecutor(reloadCommand);
         Objects.requireNonNull(getCommand("ge")).setTabCompleter(reloadCommand);
 
-        // TPA Command
         TPACommand tpaCommand = new TPACommand(this, tpaManager);
         Objects.requireNonNull(getCommand("tpa")).setExecutor(tpaCommand);
         Objects.requireNonNull(getCommand("tpa")).setTabCompleter(tpaCommand);
 
-        // Discord Command
         DiscordCommand discordCommand = new DiscordCommand(this);
         Objects.requireNonNull(getCommand("discord")).setExecutor(discordCommand);
         Objects.requireNonNull(getCommand("discord")).setTabCompleter(discordCommand);
 
-        // Kit Command
         KitCommand kitCommand = new KitCommand(this);
         Objects.requireNonNull(getCommand("kit")).setExecutor(kitCommand);
         Objects.requireNonNull(getCommand("kit")).setTabCompleter(kitCommand);
 
-        // Ban Command
-        BanCommand banCommand = new BanCommand(this, banManager);
-        Objects.requireNonNull(getCommand("ban")).setExecutor(banCommand);
-        Objects.requireNonNull(getCommand("ban")).setTabCompleter(banCommand);
-
-        // Unban Command
-        UnbanCommand unbanCommand = new UnbanCommand(this, banManager);
-        Objects.requireNonNull(getCommand("unban")).setExecutor(unbanCommand);
-        Objects.requireNonNull(getCommand("unban")).setTabCompleter(unbanCommand);
     }
 
     private void registerListeners() {
@@ -164,10 +153,6 @@ public final class GravelEssentialsX extends JavaPlugin {
         return kitManager;
     }
 
-    public BanManager getBanManager() {
-        return banManager;
-    }
-
     public MySQLConnection getConnection() {
         return connection;
     }
@@ -184,21 +169,17 @@ public final class GravelEssentialsX extends JavaPlugin {
     public void reload() {
         reloadConfig();
 
-        // MySQL neu verbinden
         if (connection != null) {
             connection.disconnect();
         }
         setupMySQL();
 
-        // Manager neu laden
         kitManager.loadKits();
-        banManager.loadBans();
 
         getLogger().info("Plugin-Config, MySQL und Ban-System wurden neu geladen!");
     }
 
     private void sendStartupMessage() {
-        // ASCII Art für "GE" mit Adventure API
         Bukkit.getConsoleSender().sendMessage(
                 Component.text("   ██████╗ ███████╗", NamedTextColor.AQUA)
         );
